@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Tugas JCC DAY 4 LARAVEL, Perkenalan HTML">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Form</title>
+</head>
+
+<body>
+    <h1>Buat Akun Baru!</h1>
+    <h2>Sign Up Form</h2>
+    <form action="welcome.html" method="GET">
+        <p>
+            <label for="firstname">First Name:</label><br /><br />
+            <input type="text" name="firstname" placeholder="First Name" required />
+            <br />
+        </p>
+        <p>
+            <label for="lastname">Last Name:</label><br /><br />
+            <input type="text" name="lastname" placeholder="Last Name" required /><br />
+        </p>
+        <p>
+            <label for="gender">Gender:</label><br /><br />
+            <input type="radio" name="gender" value="male" />Male<br />
+            <input type="radio" name="gender" value="female" />Female<br />
+            <input type="radio" name="gender" value="other" />Other<br />
+        </p>
+        <p>
+            <label for="nationality">Nationality:</label><br /><br />
+            <select name="nationality">
+                <option value="indonesian">Indonesia</option>
+                <option value="singapura">Singapura</option>
+                <option value="malaysia">Malayasia</option>
+                <option value="australia">Australia</option>
+            </select><br />
+        </p>
+        <p>
+            <label for="language_spoken">Language Spoken:</label><br /><br />
+            <input type="checkbox" name="bahasa_indonesia" value="bahasa_indonesia" />Bahasa
+            Indonesia<br />
+            <input type="checkbox" name="english" value="english" />English</label><br />
+            <label><input type="checkbox" name="other" value="other" />Other</label><br />
+        </p>
+        <label for="bio">Bio:</label><br /><br />
+        <textarea id="bio" name="bio" rows="10" cols="25"></textarea><br />
+        <input type="submit" value="Sign Up">
+    </form>
+</body>
+
+</html>
