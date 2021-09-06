@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Latihan DOM</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+        integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand">Mini Ecommerce</a>
+            <form class="form-inline" id="formItem">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" id="keyword" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchItem">Search</button>
+            </form>
+            <button class="btn btn-primary" id="cart" onclick="clearNumber()">
+                <i class="fas fa-shopping-cart"></i>(0)
+            </button>
+        </nav>
+        <div class="row">
+            <div class="row col-md-12 mt-2" id="listBarang">
+            </div>
+        </div>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+        <script>
+            // Ini Adalah Data yang di tag card atau sebuah data barang
+            var items = [
+                ['001', 'Keyboard Logitek', 60000, 'Keyboard yang mantap untuk kantoran', 'logitek.jpg'],
+                ['002', 'Keyboard MSI', 300000, 'Keyboard gaming MSI mekanik', 'msi.jpg'],
+                ['003', 'Mouse Genius', 50000, 'Mouse Genius biar lebih pinter', 'genius.jpeg'],
+                ['004', 'Mouse Jerry', 30000, 'Mouse yang disukai kucing', 'jerry.jpg']
+            ];
+            // Ini Adalah Data yang di tag card atau sebuah data barang
+
+            var listBarang = document.getElementById("listBarang");
+
+            // Sebuah Fungsi yang berfungsi untuk menampung data barang
+            function dataItemsBarang(array) {
+                var tampung = "";
+                for (var i = 0; i < array.length; i++) {
+                    var loop_data = array[i];
+                    tampung += `
+                <div class="col-4 mt-2">
+                    <div class="card" style="width: 18rem;">
+                        <img src="public/img/${loop_data[4]}" class="card-img-top" height="200px" width="200px"
+                            alt="${loop_data[1]}">
+                        <div class="card-body">
+                            <h5 class="card-title" id="itemName">${loop_data[1]}</h5>
+                            <p class="card-text" id="itemDesc">${loop_data[3]}</p>
+                            <p class="card-text">Rp ${loop_data[2]}</p>
+                            <a href="#" class="btn btn-primary" id="addCart" onclick="addCart()">Tambahkan ke keranjang</a>
+                        </div>
+                    </div>
+                </div>`;
+                }
+                listBarang.innerHTML = tampung;
+            }
+
+            dataItemsBarang(items);
+            // Sebuah Fungsi yang berfungsi untuk menampung data barang dan memanipulasi data barang yang di html
+
+
+            function filtersItemBarang(kataKunci) {
+
+                var fillteredItems = [];
+                for (let j = 0; j < items.length; j++) {
+                    var item = items[j];
+                    var namaItem = item[1];
+                    var isMatch = namaItem
+                        .toLowerCase()
+                        .includes(kataKunci.toLowerCase());
+                    if (isMatch == true) {
+                        fillteredItems.push(item);
+                    }
+                }
+                return fillteredItems
+            }
+
+            // Bisa diaktifkan Secara Bersamaan Bila Mana Search Keyword nya agak lambat
+            // Cara 1 Search Engine Data Array
+            var formSearch = document.getElementById("formItem");
+            formSearch.addEventListener("submit", function (event) {
+                event.preventDefault();
+                var keyword = document.getElementById("keyword").value;
+
+                var terfiler = filtersItemBarang(keyword);
+                dataItemsBarang(terfiler);
+            });
+            // Cara 1 Search Engine Data Array
+
+            // Cara 2 Search Engine Data Array
+            var inputSearch = document.getElementById("keyword");
+            inputSearch.addEventListener("keyup", function (event) {
+                var isi = event.target.value;
+                var filterdengankatakunci = filtersItemBarang(isi);
+                dataItemsBarang(filterdengankatakunci);
+            });
+            // Cara 2 Search Engine Data Array
+            // Bisa diaktifkan Secara Bersamaan Bila Mana Search Keyword nya agak lambat
+
+            // Memunculkan Jumlah Barang Yang di beli atau data yg di klik beli
+            var cart = document.getElementById("cart");
+            var cartNumber = cart.value;
+
+            function addCart() {
+                cartNumber++;
+                cart.innerHTML = `<i class="fas fa-shopping-cart"></i>(${cartNumber})`;
+            }
+            // Memunculkan Jumlah Barang Yang di beli atau data yg di klik beli
+
+            // Untuk Membuat Data Barang Yang di pilih untuk Beli Menjadi 0 Kembali
+            function clearNumber() {
+                cartNumber = 0;
+                cart.innerHTML = `<i class="fas fa-shopping-cart"></i>(${cartNumber})`;
+            }
+            // Untuk Membuat Data Barang Yang di pilih untuk Beli Menjadi 0 Kembali
+        </script>
+</body>
+
+</html>
